@@ -14,6 +14,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <junit.version>5.3.2</junit.version>
+    <spotbug.version>4.7.3.4</spotbug.version>
   </properties>
 
   <dependencies>
@@ -70,6 +71,12 @@
         <configuration>
           <argLine>${surefireArgLine}</argLine>
         </configuration>
+      </plugin>
+      <!-- Fixes DocumentContent error from reporting plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>4.0.0-M8</version>
       </plugin>
       <!-- Integration testing support -->
       <plugin>
@@ -149,7 +156,37 @@
           </execution>
         </executions>
       </plugin>
+      <!--
+            Spotbug plugin
+            Web site -> https://spotbugs.readthedocs.io/en/latest/maven.html
+            Execute goal: site
+            Access report: target\site\spotbugs.html
+      -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbug.version}</version>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <!--
+            Spotbug report plugin
+            This plugin depends on maven-surefire-report-plugin
+      -->
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbug.version}</version>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
