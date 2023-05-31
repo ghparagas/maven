@@ -1,3 +1,3 @@
-# Maven ExampleS
+# Maven Examples
 
 Contains maven examples
