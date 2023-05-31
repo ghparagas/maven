@@ -11,6 +11,7 @@
     <module>lombok</module>
     <module>mapstruct</module>
     <module>web-api</module>
+      <module>json-to-pojo</module>
   </modules>
 
   <properties>
